@@ -21,24 +21,11 @@ jobs:
           - os: macos-latest
             bin_name: rust_miner
             asset_name: rust_miner-macos.zip
-          - os: ubuntu-latest
-            bin_name: rust_miner
-            asset_name: rust_miner-linux.zip
 
     runs-on: ${{ matrix.os }}
 
     steps:
       - uses: actions/checkout@v4
-
-      # Bevy needs these to link on Linux: windowing (X11/Xcursor/Xrandr/Xi),
-      # input (udev), and audio (alsa) dev headers.
-      - name: Install Linux build dependencies
-        if: matrix.os == 'ubuntu-latest'
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            libudev-dev libasound2-dev pkg-config \
-            libx11-dev libxcursor-dev libxrandr-dev libxi-dev
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
@@ -60,7 +47,7 @@ jobs:
           Copy-Item -Recurse assets package/assets
           Compress-Archive -Path package/* -DestinationPath ${{ matrix.asset_name }}
 
-      - name: Package (macOS / Linux)
+      - name: Package (macOS)
         if: matrix.os != 'windows-latest'
         run: |
           mkdir -p package

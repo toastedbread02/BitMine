@@ -1,2 +1,6 @@
 # BitMine
-Bitcoin miner inside rust.
+BitMine is a native desktop dashboard for CPU Bitcoin mining, built in Rust with the Bevy game engine. It speaks the real Stratum V1 pool protocol — subscribing, authorizing, receiving live job notifications, constructing actual block headers, and submitting shares — rather than simulating mining locally. On startup it probes several regional pool servers and automatically connects to whichever responds fastest for your location, so you're not stuck guessing which endpoint is closest.
+
+The UI is a tabbed dashboard (Dashboard / Log / Pool) built entirely with Bevy's native UI system: live hashrate and share stats, a rolling hashrate history graph, an activity log, and pool connection details, all wrapped around a hand-animated pixel-art pickaxe. A --demo mode lets you preview the entire UI with simulated data — no wallet address or network connection required.
+
+Built cross-platform on top of Bevy, so it runs on Windows, macOS, and Linux without platform-specific code. Mining is deliberately single-threaded, leaving a CPU core free rather than maxing out your machine — a laptop-friendly default rather than a performance-at-all-costs one. Note: CPU mining Bitcoin has essentially no realistic chance of finding a block solo given current network difficulty — this project is a learning/proof-of-concept tool, not an income strategy.
